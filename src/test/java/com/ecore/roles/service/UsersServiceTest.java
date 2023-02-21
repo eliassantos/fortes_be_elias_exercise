@@ -17,6 +17,7 @@ import static com.ecore.roles.utils.TestData.JAREN_USER_UUID;
 import static com.ecore.roles.utils.TestData.MARION_USER_UUID;
 import static com.ecore.roles.utils.TestData.DEFAULT_USERS;
 import static com.ecore.roles.utils.TestData.UUID_1;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
@@ -51,6 +52,7 @@ class UsersServiceTest {
     	
     	List<User> body = usersClient.getUsers().getBody();
     	
+    	assertThat(body.size()).isEqualTo(3);
     	assertEquals(GIANNI_USER_UUID, body.get(0).getId());
     	assertEquals(JAREN_USER_UUID, body.get(1).getId());  
     	assertEquals(MARION_USER_UUID, body.get(2).getId());  

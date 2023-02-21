@@ -16,6 +16,7 @@ import static com.ecore.roles.utils.TestData.ORDINARY_CORAL_LYNX_TEAM;
 import static com.ecore.roles.utils.TestData.ORDINARY_CORAL_LYNX_TEAM_UUID;
 import static com.ecore.roles.utils.TestData.WEEKLY_PEACH_WILDEBEEST_TEAM_UUID;
 import static com.ecore.roles.utils.TestData.SURROUNDING_GOLD_PHEASANT_TEAM_UUID;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
@@ -48,6 +49,7 @@ class TeamsServiceTest {
     	
     	List<Team> body = teamsClient.getTeams().getBody();
     	
+    	assertThat(body.size()).isEqualTo(3);
     	assertEquals(ORDINARY_CORAL_LYNX_TEAM_UUID, body.get(0).getId());
     	assertEquals(WEEKLY_PEACH_WILDEBEEST_TEAM_UUID, body.get(1).getId());  
     	assertEquals(SURROUNDING_GOLD_PHEASANT_TEAM_UUID, body.get(2).getId());  
