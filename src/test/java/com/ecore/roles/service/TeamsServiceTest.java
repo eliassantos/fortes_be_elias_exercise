@@ -47,11 +47,11 @@ class TeamsServiceTest {
     	.thenReturn(ResponseEntity
     			.status(HttpStatus.OK).body(DEFAULT_TEAMS()));
     	
-    	List<Team> body = teamsClient.getTeams().getBody();
+    	List<Team> teams = teamsService.getTeams();
     	
-    	assertThat(body.size()).isEqualTo(3);
-    	assertEquals(ORDINARY_CORAL_LYNX_TEAM_UUID, body.get(0).getId());
-    	assertEquals(WEEKLY_PEACH_WILDEBEEST_TEAM_UUID, body.get(1).getId());  
-    	assertEquals(SURROUNDING_GOLD_PHEASANT_TEAM_UUID, body.get(2).getId());  
+    	assertThat(teams.size()).isEqualTo(3);
+    	assertEquals(ORDINARY_CORAL_LYNX_TEAM_UUID, teams.get(0).getId());
+    	assertEquals(WEEKLY_PEACH_WILDEBEEST_TEAM_UUID, teams.get(1).getId());  
+    	assertEquals(SURROUNDING_GOLD_PHEASANT_TEAM_UUID, teams.get(2).getId());  
     }
 }

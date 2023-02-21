@@ -25,7 +25,6 @@ public class RolesServiceImpl implements RolesService {
 
     private final RoleRepository roleRepository;
     private final MembershipRepository membershipRepository;
-    private final MembershipsService membershipsService;
 
     @Autowired
     public RolesServiceImpl(
@@ -34,7 +33,6 @@ public class RolesServiceImpl implements RolesService {
             MembershipsService membershipsService) {
         this.roleRepository = roleRepository;
         this.membershipRepository = membershipRepository;
-        this.membershipsService = membershipsService;
     }
 
     @Override
@@ -54,11 +52,6 @@ public class RolesServiceImpl implements RolesService {
     @Override
     public List<Role> getRoles() {
         return roleRepository.findAll();
-    }
-
-    private Role getDefaultRole() {
-        return roleRepository.findByName(DEFAULT_ROLE)
-                .orElseThrow(() -> new IllegalStateException("Default role is not configured"));
     }
 
     @Override

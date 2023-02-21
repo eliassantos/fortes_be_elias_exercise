@@ -4,6 +4,7 @@ import com.ecore.roles.service.TeamsService;
 import com.ecore.roles.web.TeamsApi;
 import com.ecore.roles.web.dto.TeamDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 
 import static com.ecore.roles.web.dto.TeamDto.fromModel;
 
+@Log4j2
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/v1/teams")

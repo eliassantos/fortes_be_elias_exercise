@@ -2,7 +2,10 @@ package com.ecore.roles.client;
 
 import com.ecore.roles.client.model.Team;
 import com.ecore.roles.configuration.ClientsConfigurationProperties;
+
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.UUID;
 
+@Log4j2
 @RequiredArgsConstructor
 @Component
 public class TeamsClient {

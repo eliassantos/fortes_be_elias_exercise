@@ -50,11 +50,11 @@ class UsersServiceTest {
     	.thenReturn(ResponseEntity
     			.status(HttpStatus.OK).body(DEFAULT_USERS()));
     	
-    	List<User> body = usersClient.getUsers().getBody();
+    	List<User> users = usersService.getUsers();
     	
-    	assertThat(body.size()).isEqualTo(3);
-    	assertEquals(GIANNI_USER_UUID, body.get(0).getId());
-    	assertEquals(JAREN_USER_UUID, body.get(1).getId());  
-    	assertEquals(MARION_USER_UUID, body.get(2).getId());  
+    	assertThat(users.size()).isEqualTo(3);
+    	assertEquals(GIANNI_USER_UUID, users.get(0).getId());
+    	assertEquals(JAREN_USER_UUID, users.get(1).getId());  
+    	assertEquals(MARION_USER_UUID, users.get(2).getId());  
     }
 }
