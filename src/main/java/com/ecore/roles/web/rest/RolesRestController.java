@@ -50,7 +50,7 @@ public class RolesRestController implements RolesApi {
         }
 
         return ResponseEntity
-                .status(200)
+                .status(HttpStatus.OK)
                 .body(roleDtoList);
     }
 
@@ -61,7 +61,7 @@ public class RolesRestController implements RolesApi {
     public ResponseEntity<RoleDto> getRole(
             @PathVariable UUID roleId) {
         return ResponseEntity
-                .status(200)
+                .status(HttpStatus.OK)
                 .body(fromModel(rolesService.getRole(roleId)));
     }
 

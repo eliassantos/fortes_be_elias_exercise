@@ -56,7 +56,7 @@ public class MembershipsRestController implements MembershipsApi {
         }
 
         return ResponseEntity
-                .status(200)
+                .status(HttpStatus.OK)
                 .body(newMembershipDto);
     }
 
