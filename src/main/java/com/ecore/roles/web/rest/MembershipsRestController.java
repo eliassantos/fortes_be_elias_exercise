@@ -27,14 +27,13 @@ public class MembershipsRestController implements MembershipsApi {
 
     @Override
     @PostMapping(
-        consumes = {"application/json"},
-        produces = {"application/json"})
+            consumes = {"application/json"},
+            produces = {"application/json"})
     public ResponseEntity<MembershipDto> assignRoleToMembership(
-    	@NotNull @Valid @RequestBody MembershipDto membershipDto
-    ) {
-    	
+            @NotNull @Valid @RequestBody MembershipDto membershipDto) {
+
         Membership membership = membershipsService.assignRoleToMembership(membershipDto.toModel());
-        
+
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(fromModel(membership));

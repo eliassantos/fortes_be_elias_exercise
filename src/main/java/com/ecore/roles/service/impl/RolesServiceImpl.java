@@ -61,11 +61,11 @@ public class RolesServiceImpl implements RolesService {
                 .orElseThrow(() -> new IllegalStateException("Default role is not configured"));
     }
 
-	@Override
-	public Role getRoleByUserIdAndTeamId(UUID userId, UUID teamId) {
-		Membership membership = membershipRepository.findByUserIdAndTeamId(userId, teamId)
-				.orElseThrow(() -> new ResourceNotFoundException(Team.class, teamId));
-		
-		return membership.getRole();
-	}
+    @Override
+    public Role getRoleByUserIdAndTeamId(UUID userId, UUID teamId) {
+        Membership membership = membershipRepository.findByUserIdAndTeamId(userId, teamId)
+                .orElseThrow(() -> new ResourceNotFoundException(Team.class, teamId));
+
+        return membership.getRole();
+    }
 }

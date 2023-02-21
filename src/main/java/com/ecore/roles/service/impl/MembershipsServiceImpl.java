@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static java.util.Optional.ofNullable;
@@ -52,17 +51,18 @@ public class MembershipsServiceImpl implements MembershipsService {
         }
 
         roleRepository.findById(roleId).orElseThrow(() -> new ResourceNotFoundException(Role.class, roleId));
-        
+
         Team team = ofNullable(teamsService.getTeam(m.getTeamId()))
-        		.orElseThrow(() -> new ResourceNotFoundException(Team.class, m.getTeamId()));
-        
+                .orElseThrow(() -> new ResourceNotFoundException(Team.class, m.getTeamId()));
+
         if (!team
-        		.getTeamMemberIds()
-        			.contains(m.getUserId())) {
-        	
-        	throw new ResourceExistsException(Membership.class, "The provided user doesn't belong to the provided team.");
+                .getTeamMemberIds()
+                .contains(m.getUserId())) {
+
+            throw new ResourceExistsException(Membership.class,
+                    "The provided user doesn't belong to the provided team.");
         }
-        
+
         return membershipRepository.save(m);
     }
 
