@@ -1,5 +1,6 @@
 package com.ecore.roles.service;
 
+import com.ecore.roles.client.model.Team;
 import com.ecore.roles.exception.InvalidArgumentException;
 import com.ecore.roles.exception.ResourceExistsException;
 import com.ecore.roles.model.Membership;
@@ -12,14 +13,17 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.ecore.roles.utils.TestData.DEFAULT_MEMBERSHIP;
 import static com.ecore.roles.utils.TestData.DEVELOPER_ROLE;
+import static com.ecore.roles.utils.TestData.ORDINARY_CORAL_LYNX_TEAM;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
@@ -41,11 +45,19 @@ class MembershipsServiceTest {
     @Test
     public void shouldCreateMembership() {
         Membership expectedMembership = DEFAULT_MEMBERSHIP();
+        Team expectedTeam = ORDINARY_CORAL_LYNX_TEAM();
+        
         when(roleRepository.findById(expectedMembership.getRole().getId()))
                 .thenReturn(Optional.ofNullable(DEVELOPER_ROLE()));
-        when(membershipRepository.findByUserIdAndTeamId(expectedMembership.getUserId(),
-                expectedMembership.getTeamId()))
+        
+        when(membershipRepository
+        		.findByUserIdAndTeamId(expectedMembership.getUserId(), expectedMembership.getTeamId()))
                         .thenReturn(Optional.empty());
+        
+        when(teamsService
+        		.getTeam(expectedMembership.getTeamId()))
+        			.thenReturn(expectedTeam);
+        
         when(membershipRepository
                 .save(expectedMembership))
                         .thenReturn(expectedMembership);
