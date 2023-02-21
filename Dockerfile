@@ -4,7 +4,7 @@ COPY pom.xml .
 COPY spotless.xml .
 RUN mvn -e -B dependency:resolve dependency:resolve-plugins
 COPY src ./src
-RUN ["mvn", "-e", "-B", "clean", "package", "-Dmaven.test.skip=true"]
+RUN mvn -e -B clean package
 
 FROM openjdk:11-slim AS RUNNER
 WORKDIR /app
