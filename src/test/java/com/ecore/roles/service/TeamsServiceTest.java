@@ -11,10 +11,16 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import static com.ecore.roles.utils.TestData.DEFAULT_TEAMS;
 import static com.ecore.roles.utils.TestData.ORDINARY_CORAL_LYNX_TEAM;
 import static com.ecore.roles.utils.TestData.ORDINARY_CORAL_LYNX_TEAM_UUID;
+import static com.ecore.roles.utils.TestData.WEEKLY_PEACH_WILDEBEEST_TEAM_UUID;
+import static com.ecore.roles.utils.TestData.SURROUNDING_GOLD_PHEASANT_TEAM_UUID;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
+
+import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 class TeamsServiceTest {
@@ -32,5 +38,18 @@ class TeamsServiceTest {
                         .status(HttpStatus.OK)
                         .body(ordinaryCoralLynxTeam));
         assertNotNull(teamsService.getTeam(ORDINARY_CORAL_LYNX_TEAM_UUID));
+    }
+    
+    @Test
+    void shouldGetAllTeams() {
+    	when(teamsClient.getTeams())
+    	.thenReturn(ResponseEntity
+    			.status(HttpStatus.OK).body(DEFAULT_TEAMS()));
+    	
+    	List<Team> body = teamsClient.getTeams().getBody();
+    	
+    	assertEquals(ORDINARY_CORAL_LYNX_TEAM_UUID, body.get(0).getId());
+    	assertEquals(WEEKLY_PEACH_WILDEBEEST_TEAM_UUID, body.get(1).getId());  
+    	assertEquals(SURROUNDING_GOLD_PHEASANT_TEAM_UUID, body.get(2).getId());  
     }
 }
