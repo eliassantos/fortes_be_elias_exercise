@@ -1,5 +1,6 @@
 package com.ecore.roles.service.impl;
 
+import com.ecore.roles.client.model.Team;
 import com.ecore.roles.exception.InvalidArgumentException;
 import com.ecore.roles.exception.ResourceExistsException;
 import com.ecore.roles.exception.ResourceNotFoundException;
@@ -8,6 +9,8 @@ import com.ecore.roles.model.Role;
 import com.ecore.roles.repository.MembershipRepository;
 import com.ecore.roles.repository.RoleRepository;
 import com.ecore.roles.service.MembershipsService;
+import com.ecore.roles.service.TeamsService;
+
 import lombok.NonNull;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +27,16 @@ public class MembershipsServiceImpl implements MembershipsService {
 
     private final MembershipRepository membershipRepository;
     private final RoleRepository roleRepository;
+    private final TeamsService teamsService;
 
     @Autowired
     public MembershipsServiceImpl(
             MembershipRepository membershipRepository,
-            RoleRepository roleRepository) {
+            RoleRepository roleRepository,
+            TeamsService teamsService) {
         this.membershipRepository = membershipRepository;
         this.roleRepository = roleRepository;
+        this.teamsService = teamsService;
     }
 
     @Override
@@ -45,6 +51,18 @@ public class MembershipsServiceImpl implements MembershipsService {
         }
 
         roleRepository.findById(roleId).orElseThrow(() -> new ResourceNotFoundException(Role.class, roleId));
+
+        Team team = ofNullable(teamsService.getTeam(m.getTeamId()))
+                .orElseThrow(() -> new ResourceNotFoundException(Team.class, m.getTeamId()));
+
+        if (!team
+                .getTeamMemberIds()
+                .contains(m.getUserId())) {
+
+            throw new ResourceExistsException(Membership.class,
+                    "The provided user doesn't belong to the provided team.");
+        }
+
         return membershipRepository.save(m);
     }
 

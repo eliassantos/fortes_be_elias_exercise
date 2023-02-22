@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<profiles version="13">
-	<profile kind="CodeFormatterProfile" name="GoogleStyle" version="13">
+<profiles version="1.13.0">
+	<profile kind="CodeFormatterProfile" name="GoogleStyle" version="1.13.0">
 		<setting id="org.eclipse.jdt.core.formatter.comment.insert_new_line_before_root_tags" value="insert"/>
 		<setting id="org.eclipse.jdt.core.formatter.disabling_tag" value="@formatter:off"/>
 		<setting id="org.eclipse.jdt.core.formatter.insert_space_after_comma_in_annotation" value="insert"/>
